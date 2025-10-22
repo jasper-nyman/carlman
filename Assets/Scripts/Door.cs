@@ -1,7 +1,12 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class Door : MonoBehaviour
 {
+    // Interactable variables
+    public bool interactable;
+    public bool touchingFakecast;
+
     // References and state variables
     public Animation anim;
     public GameObject hinge;
@@ -33,6 +38,21 @@ public class Door : MonoBehaviour
     {
         // Update the door's rotation
         hinge.transform.eulerAngles = new Vector3(hinge.transform.eulerAngles.x, rotationYStart + rotationY + rotationYOffset, hinge.transform.eulerAngles.z);
+
+        if (Input.GetMouseButtonDown(0))
+        {
+            if (interactable && touchingFakecast)
+            {
+                InteractionEvent(0);
+            }
+        }
+        else if (Input.GetMouseButtonDown(1))
+        {
+            if (interactable && touchingFakecast)
+            {
+                InteractionEvent(1);
+            }
+        }
     }
 
     public void InteractionEvent(int eventNumber)

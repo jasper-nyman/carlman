@@ -74,7 +74,6 @@ public class PlayerController : MonoBehaviour
                 if (Input.GetKeyDown(KeyCode.Space) && var.grounded && var.canJump)
                 {
                     var.rb.AddForce(Vector3.up * var.jumpForce, ForceMode.Impulse);
-                    Debug.Log("Player jumped");
                 }
 
                 // Preserve vertical velocity and apply movement
