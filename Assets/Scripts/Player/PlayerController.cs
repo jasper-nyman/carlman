@@ -6,12 +6,12 @@ public class PlayerController : MonoBehaviour
     [Header("References")]
     public PlayerVariables var;
 
-    float verticalRotation;
+    float cameraRotation;
 
     void Start()
     {
         Cursor.lockState = CursorLockMode.Locked;
-        verticalRotation = 0f;
+        cameraRotation = 0f;
     }
 
     void OnTriggerStay(Collider other)
@@ -59,13 +59,16 @@ public class PlayerController : MonoBehaviour
                     moveSpeed = var.walkSpeed;
                 }
 
-                // Get input
+                // Get input and calculate movement
                 var movementX = Input.GetAxis("Horizontal");
                 var movementZ = Input.GetAxis("Vertical");
 
-                // Calculate movement vector
+                Vector3 velocity = var.rb.linearVelocity;
                 Vector3 move = (transform.right * movementX) + (transform.forward * movementZ);
                 Vector3 moveVelocity = move.normalized * moveSpeed;
+                velocity.x = moveVelocity.x;
+                velocity.z = moveVelocity.z;
+                var.rb.linearVelocity = velocity;
 
                 // Jumping
                 if (Input.GetKeyDown(KeyCode.Space) && var.grounded && var.canJump)
@@ -88,13 +91,18 @@ public class PlayerController : MonoBehaviour
                     float mouseY = Input.GetAxis("Mouse Y") * var.lookSensitivity;
 
                     // Update and clamp vertical rotation
-                    verticalRotation -= mouseY;
-                    verticalRotation = Mathf.Clamp(verticalRotation, -90f, 90f);
+                    cameraRotation -= mouseY;
+                    cameraRotation = Mathf.Clamp(cameraRotation, -90f, 90f);
 
                     // Apply rotation to camera
-                    var.cam.transform.localEulerAngles = new Vector3(verticalRotation, 0f, 0f);
+                    var.cam.transform.localEulerAngles = new Vector3(cameraRotation, 0f, 0f);
                 }
             }
         }
+    }
+
+    void FixedUpdate()
+    {
+        
     }
 }
