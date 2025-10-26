@@ -4,10 +4,8 @@ public class PlayerVariables : MonoBehaviour
 {
     // References
     [Header("References")]
-    public Rigidbody rb;
     public GameObject cam;
     public GameObject fakecast;
-    
 
     // Player state variables
     [Header ("States")]
@@ -38,12 +36,17 @@ public class PlayerVariables : MonoBehaviour
     public float lookSensitivity;
 
     // Do not modify these values directly
-    [Header ("Do Not Modify")]
+    [Header("Do Not Modify")]
+    public Rigidbody rb;
+    public Animation anim;
+    public float cameraOffsetY;
     public float cameraRotation;
     public CanvasVariables cvar;
 
     void Start()
     {
+        rb = GetComponent<Rigidbody>();
+        anim = GetComponent<Animation>();
         cvar = FindFirstObjectByType<Canvas>().GetComponent<CanvasVariables>();
         Debug.Log("Player variables initialized");
     }

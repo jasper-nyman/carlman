@@ -1,37 +1,42 @@
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Fakecast : MonoBehaviour
 {
     PlayerVariables var;
+    Image dotImage;
+    RawImage handImage;
 
     void Start()
     {
         var = GetComponentInParent<PlayerVariables>();
+        dotImage = var.cvar.dot.GetComponent<Image>();
+        handImage = var.cvar.hand.GetComponent<RawImage>();
     }
 
-    void OnTriggerEnter(Collider other)
+    void OnTriggerStay(Collider other)
     {
-        if (other.gameObject.tag == "Interactable")
+        GameObject obj = other.gameObject;
+        Interactable intComp = obj.GetComponent<Interactable>();
+
+        if (obj.CompareTag("Interactable") && intComp.interactable)
         {
-            var.cvar.dot.enabled = false;
-            var.cvar.hand.enabled = true;
+            dotImage.enabled = false;
+            handImage.enabled = true;
             Debug.Log("Fakecast hit interactable object");
         }
     }
 
     void OnTriggerExit(Collider other)
     {
-        if (other.gameObject.tag == "Interactable")
+        GameObject obj = other.gameObject;
+
+        if (obj.CompareTag("Interactable"))
         {
-            var.cvar.hand.enabled = false;
-            var.cvar.dot.enabled = true;
+            handImage.enabled = false;
+            dotImage.enabled = true;
             Debug.Log("Fakecast exited interactable object");
         }
-    }
-
-    void Update()
-    {
-        
     }
 }
