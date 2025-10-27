@@ -14,7 +14,6 @@ public class PlayerVariables : MonoBehaviour
     public bool canMove;
     public bool canSprint;
     public bool canJump;
-    public bool canCrouch;
     public bool canLook;
     public bool canInteract;
     public bool canHold;
@@ -39,6 +38,7 @@ public class PlayerVariables : MonoBehaviour
     [Header("Do Not Modify")]
     public Rigidbody rb;
     public Animation anim;
+    public float cameraPositionY;
     public float cameraOffsetY;
     public float cameraRotation;
     public CanvasVariables cvar;
@@ -49,5 +49,9 @@ public class PlayerVariables : MonoBehaviour
         anim = GetComponent<Animation>();
         cvar = FindFirstObjectByType<Canvas>().GetComponent<CanvasVariables>();
         Debug.Log("Player variables initialized");
+
+        anim["PlayerMove"].blendMode = AnimationBlendMode.Blend;
+        anim["PlayerCrouch"].blendMode = AnimationBlendMode.Blend;
+        anim["PlayerStand"].blendMode = AnimationBlendMode.Blend;
     }
 }

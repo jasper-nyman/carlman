@@ -33,7 +33,7 @@ public class Door : MonoBehaviour
         // Set initial door state
         if (open)
         {
-            rotationY = -90f * parent.transform.lossyScale.x; // Door starts open
+            rotationY = -90f; //* parent.transform.lossyScale.x; // Door starts open
         }
         else
         {
@@ -48,45 +48,55 @@ public class Door : MonoBehaviour
             case 0:
                 if (!locked)
                 {
+                    // Close unlocked door
                     if (open && !anim.IsPlaying("DoorOpen"))
                     {
                         // Close the door
                         anim.Play("DoorClose");
                         open = false;
-                        Debug.Log("Door closed.");
+                        Debug.Log("Door closed. Is unlocked.");
                     }
-                    
+
+                    // Open unlocked door
                     if (!open && !anim.IsPlaying("DoorClose"))
                     {
                         // Open the door
                         anim.Play("DoorOpen");
                         open = true;
-                        Debug.Log("Door opened.");
+                        Debug.Log("Door opened. Is unlocked.");
                     }
                 }
                 else
                 {
+                    // Close locked door
                     if (open && !anim.IsPlaying("DoorOpen"))
                     {
                         // Close the door
                         anim.Play("DoorClose");
                         open = false;
-                        Debug.Log("Door closed.");
+                        Debug.Log("Door closed. Is locked.");
                     }
 
+                    // Attempt to open locked door
                     if (!open && !anim.IsPlaying("DoorClose"))
                     {
-                        // Open the door
-                        anim.Play("DoorOpen");
-                        open = true;
-                        Debug.Log("Door opened.");
+                        Debug.Log("Door not opened. Is locked.");
                     }
                 }
             break;
 
             case 1:
-                // if the player has the key to the door
-                // lock/unlock the door
+                // Toggle lock state
+                locked = !locked;
+
+                if (locked)
+                {
+                    Debug.Log("Door locked.");
+                }
+                else
+                {
+                    Debug.Log("Door unlocked.");
+                }
             break;
         }
     }
@@ -99,11 +109,14 @@ public class Door : MonoBehaviour
         // Check for interaction input
         if (intComp.interactable && intComp.touchingFakecast)
         {
+            // Left mouse button for opening/closing
             if (Input.GetMouseButtonDown(0))
             {
                 InteractionEvent(0);
             }
-            else if (Input.GetMouseButtonDown(1))
+
+            // Right mouse button for locking/unlocking
+            if (Input.GetMouseButtonDown(1))
             {
                 InteractionEvent(1);
             }

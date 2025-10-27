@@ -19,22 +19,6 @@ public class PlayerController : MonoBehaviour
         cameraRotation = 0f;
     }
 
-    void OnTriggerStay(Collider other)
-    {
-        if (!other.isTrigger)
-        {
-            var.grounded = true;
-        }
-    }
-
-    void OnTriggerExit(Collider other)
-    {
-        if (!other.isTrigger)
-        {
-            var.grounded = false;
-        }
-    }
-
     void Update()
     {
         if (var.active && var.canMove)
@@ -57,7 +41,23 @@ public class PlayerController : MonoBehaviour
 
             if (movementX != 0f || movementZ != 0f)
             {
-                
+                if (!var.anim.IsPlaying("PlayerMove"))
+                {
+                    var.anim.Play("PlayerMove");
+                }
+                else
+                {
+                    var.anim["PlayerMove"].speed = moveSpeed / var.walkSpeed;
+                }
+            }
+            else
+            {
+                if (var.anim.IsPlaying("PlayerMove"))
+                {
+                    var.anim.Stop("PlayerMove");
+                }
+
+                var.cameraOffsetY += (0f - var.cameraOffsetY) * (5f * Time.deltaTime);
             }
 
             // Cache jump input
@@ -76,6 +76,7 @@ public class PlayerController : MonoBehaviour
                 cameraRotation -= mouseY;
                 cameraRotation = Mathf.Clamp(cameraRotation, -90f, 90f);
 
+                var.cam.transform.localPosition = new Vector3(0f, var.cameraPositionY + var.cameraOffsetY, 0f);
                 var.cam.transform.localEulerAngles = new Vector3(cameraRotation, 0f, 0f);
             }
         }
