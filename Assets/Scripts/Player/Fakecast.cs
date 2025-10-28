@@ -1,12 +1,19 @@
+using System.Net.NetworkInformation;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class Fakecast : MonoBehaviour
 {
+    // References
+    [Header("References")]
     PlayerVariables var;
     Image dotImage;
     RawImage handImage;
+
+    // Do not modify these values directly
+    [Header("Do Not Modify")]
+    public GameObject focusedObject;
 
     void Start()
     {
@@ -20,11 +27,22 @@ public class Fakecast : MonoBehaviour
         GameObject obj = other.gameObject;
         Interactable intComp = obj.GetComponent<Interactable>();
 
-        if (obj.CompareTag("Interactable") && intComp.interactable)
+        if (obj.CompareTag("Interactable"))
         {
-            dotImage.enabled = false;
-            handImage.enabled = true;
-            Debug.Log("Fakecast hit interactable object");
+            if (intComp.interactable)
+            {
+                focusedObject = obj;
+                dotImage.enabled = false;
+                handImage.enabled = true;
+                Debug.Log("Fakecast hit interactable object");
+            }
+            else
+            {
+                focusedObject = null;
+                handImage.enabled = false;
+                dotImage.enabled = true;
+                Debug.Log("Fakecast exited interactable object");
+            }
         }
     }
 
@@ -34,9 +52,24 @@ public class Fakecast : MonoBehaviour
 
         if (obj.CompareTag("Interactable"))
         {
+            focusedObject = null;
             handImage.enabled = false;
             dotImage.enabled = true;
             Debug.Log("Fakecast exited interactable object");
+        }
+    }
+
+    void Update()
+    {
+        if (focusedObject != null && Input.GetMouseButtonDown(0))
+        {
+            Interactable intComp = focusedObject.GetComponent<Interactable>();
+
+            if (intComp.interactable && intComp.grabable && intComp.grabComp.grabable)
+            {
+                var.heldObject = focusedObject;
+                Debug.Log("Grabbbed grabable object");
+            }
         }
     }
 }

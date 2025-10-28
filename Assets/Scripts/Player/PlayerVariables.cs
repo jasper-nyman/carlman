@@ -16,7 +16,9 @@ public class PlayerVariables : MonoBehaviour
     public bool canJump;
     public bool canLook;
     public bool canInteract;
-    public bool canHold;
+    public bool canGrab;
+    public GameObject heldObject;
+    public float objectThrowForce;
 
     // Player stat variables
     [Header ("Stats")]
@@ -51,7 +53,5 @@ public class PlayerVariables : MonoBehaviour
         Debug.Log("Player variables initialized");
 
         anim["PlayerMove"].blendMode = AnimationBlendMode.Blend;
-        anim["PlayerCrouch"].blendMode = AnimationBlendMode.Blend;
-        anim["PlayerStand"].blendMode = AnimationBlendMode.Blend;
     }
 }

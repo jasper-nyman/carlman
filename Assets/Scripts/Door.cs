@@ -5,11 +5,9 @@ public class Door : MonoBehaviour
 {
     // References
     [Header("References")]
+    public GameObject key;
     GameObject parent;
     Interactable intComp;
-    public Animation anim;
-    public GameObject hinge;
-    public GameObject key;
 
     // State variables
     [Header("States")]
@@ -18,6 +16,8 @@ public class Door : MonoBehaviour
 
     // Do not modify these values directly
     [Header("Do Not Modify")]
+    public Animation anim;
+    public GameObject hinge;
     float rotationYStart;
     public float rotationY;
 
@@ -86,16 +86,25 @@ public class Door : MonoBehaviour
             break;
 
             case 1:
-                // Toggle lock state
-                locked = !locked;
+                PlayerVariables var = GameObject.Find("Player").GetComponent<PlayerVariables>();
 
-                if (locked)
+                if (var.heldObject == key)
                 {
-                    Debug.Log("Door locked.");
+                    // Toggle lock state
+                    locked = !locked;
+
+                    if (locked)
+                    {
+                        Debug.Log("Door locked.");
+                    }
+                    else
+                    {
+                        Debug.Log("Door unlocked.");
+                    }
                 }
                 else
                 {
-                    Debug.Log("Door unlocked.");
+                    Debug.Log("Cannot toggle lock. Key not held.");
                 }
             break;
         }

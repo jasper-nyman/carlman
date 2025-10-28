@@ -39,15 +39,28 @@ public class PlayerController : MonoBehaviour
             movementX = Input.GetAxis("Horizontal");
             movementZ = Input.GetAxis("Vertical");
 
-            if (movementX != 0f || movementZ != 0f)
+            // Play movement animation
+            if (var.grounded)
             {
-                if (!var.anim.IsPlaying("PlayerMove"))
+                if (movementX != 0f || movementZ != 0f)
                 {
-                    var.anim.Play("PlayerMove");
+                    if (!var.anim.IsPlaying("PlayerMove"))
+                    {
+                        var.anim.Play("PlayerMove");
+                    }
+                    else
+                    {
+                        var.anim["PlayerMove"].speed = moveSpeed / var.walkSpeed;
+                    }
                 }
                 else
                 {
-                    var.anim["PlayerMove"].speed = moveSpeed / var.walkSpeed;
+                    if (var.anim.IsPlaying("PlayerMove"))
+                    {
+                        var.anim.Stop("PlayerMove");
+                    }
+
+                    var.cameraOffsetY += (0f - var.cameraOffsetY) * (5f * Time.deltaTime);
                 }
             }
             else
@@ -78,6 +91,27 @@ public class PlayerController : MonoBehaviour
 
                 var.cam.transform.localPosition = new Vector3(0f, var.cameraPositionY + var.cameraOffsetY, 0f);
                 var.cam.transform.localEulerAngles = new Vector3(cameraRotation, 0f, 0f);
+            }
+
+            // Holding objects
+            if (var.heldObject != null)
+            {
+                Grabable grabComp = var.heldObject.GetComponent<Grabable>();
+                grabComp.grabbed = true;
+
+                // Throw held object
+                if (Input.GetKeyDown(KeyCode.Q))
+                {
+                    grabComp.grabbed = false;
+                    grabComp.rb.constraints = RigidbodyConstraints.None;
+                    grabComp.objectCollider.enabled = true;
+                    grabComp.rb.useGravity = true;
+
+                    var.heldObject.GetComponent<Rigidbody>().AddForce((gameObject.transform.up * 5f) + (var.cam.transform.forward * var.objectThrowForce), ForceMode.Impulse);
+                    var.heldObject = null;
+
+
+                }
             }
         }
     }
@@ -110,6 +144,16 @@ public class PlayerController : MonoBehaviour
             // Preserve vertical velocity
             moveVelocity.y = var.rb.linearVelocity.y;
             var.rb.linearVelocity = moveVelocity;
+
+            // Holding objects
+            if (var.heldObject != null)
+            {
+                Rigidbody rb = var.heldObject.GetComponent<Rigidbody>();
+
+                // Lerp held object to fakecast position
+                var.heldObject.transform.position = Vector3.Lerp(var.heldObject.transform.position, var.fakecast.transform.position - (var.fakecast.transform.up / 2f), Time.deltaTime * 10f);
+                var.heldObject.transform.rotation = Quaternion.Lerp(var.heldObject.transform.rotation, var.fakecast.transform.rotation, Time.deltaTime * 10f);
+            }
         }
     }
 }
