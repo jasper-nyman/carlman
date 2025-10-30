@@ -16,7 +16,7 @@ public class PlayerInteractor : MonoBehaviour
 
     // Raycast Settings
     [Header("Raycast Settings")]
-    public float raycastDistance = 3f;
+    public float raycastDistance;
     public LayerMask raycastLayers = ~0; // optional: set in Inspector
 
     void Start()

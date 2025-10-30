@@ -1,9 +1,11 @@
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
     [Header("References")]
     public PlayerVariables var;
+    CapsuleCollider capCol;
 
     float moveSpeed;
     float cameraRotation;
@@ -15,6 +17,7 @@ public class PlayerController : MonoBehaviour
 
     void Start()
     {
+        capCol = GetComponent<CapsuleCollider>();
         Cursor.lockState = CursorLockMode.Locked;
         cameraRotation = 0f;
     }
@@ -50,7 +53,7 @@ public class PlayerController : MonoBehaviour
                     }
                     else
                     {
-                        var.anim["PlayerMove"].speed = moveSpeed / var.walkSpeed;
+                        var.anim["PlayerMove"].speed = moveSpeed / var.walkSpeed / var.moveSpeedDivider;
                     }
                 }
                 else
@@ -78,6 +81,36 @@ public class PlayerController : MonoBehaviour
             {
                 jumpPressed = true;
             }
+
+            // Crouching
+            if (var.canCrouch)
+            {
+                if (Input.GetKey(KeyCode.LeftControl))
+                {
+                    var.crouching = true;
+                }
+                else
+                {
+                    var.crouching = false;
+                }
+            }
+            else
+            {
+                var.crouching = false;
+            }
+
+            if (var.crouching)
+            {
+                var.moveSpeedDivider = 2;
+                capCol.height += (2f - capCol.height) * (10f * Time.deltaTime);
+            }
+            else
+            {
+                var.moveSpeedDivider = 1;
+                capCol.height += (3f - capCol.height) * (10f * Time.deltaTime);
+            }
+
+            var.cameraPositionY = capCol.height - 0.5f;
 
             // Mouse look (stays in Update)
             if (var.canLook)
@@ -125,7 +158,7 @@ public class PlayerController : MonoBehaviour
 
             // Calculate movement
             Vector3 move = (transform.right * movementX) + (transform.forward * movementZ);
-            Vector3 moveVelocity = move.normalized * moveSpeed;
+            Vector3 moveVelocity = move.normalized * (moveSpeed / var.moveSpeedDivider);
 
             // Apply horizontal velocity
             velocity.x = moveVelocity.x;

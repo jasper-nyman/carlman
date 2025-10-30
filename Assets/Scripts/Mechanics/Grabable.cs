@@ -29,14 +29,14 @@ public class Grabable : MonoBehaviour
         {
             rb.linearVelocity = Vector3.zero;
             rb.constraints = RigidbodyConstraints.FreezeAll;
-            //objectCollider.enabled = false;
+            objectCollider.enabled = false;
             objectTrigger.enabled = false;
             rb.useGravity = false;
         }
         else
         {
             rb.constraints = RigidbodyConstraints.None;
-            //objectCollider.enabled = true;
+            objectCollider.enabled = true;
             objectTrigger.enabled = false;
             rb.useGravity = true;
         }

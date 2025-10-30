@@ -13,6 +13,8 @@ public class PlayerVariables : MonoBehaviour
     public bool canMove;
     public bool canSprint;
     public bool canJump;
+    public bool canCrouch;
+    
     public bool canLook;
     public bool canInteract;
     public bool canGrab;
@@ -43,6 +45,8 @@ public class PlayerVariables : MonoBehaviour
     public float cameraOffsetY;
     public float cameraRotation;
     public CanvasVariables cvar;
+    public bool crouching;
+    public float moveSpeedDivider;
 
     void Start()
     {
