@@ -5,7 +5,6 @@ public class PlayerVariables : MonoBehaviour
     // References
     [Header("References")]
     public GameObject cam;
-    public GameObject fakecast;
 
     // Player state variables
     [Header ("States")]

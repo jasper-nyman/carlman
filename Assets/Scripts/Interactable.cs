@@ -9,7 +9,7 @@ public class Interactable : MonoBehaviour
 
     // Do not modify these values directly
     [Header("Do Not Modify")]
-    public bool touchingFakecast;
+    public bool touchingRaycast;
     public Grabable grabComp;
 
     void Start()
@@ -36,24 +36,6 @@ public class Interactable : MonoBehaviour
         {
             // Enable interaction when not grabbed
             interactable = true;
-        }
-    }
-
-    void OnTriggerStay(Collider other)
-    {
-        // Check for fakecast contact
-        if (other.CompareTag("Fakecast"))
-        {
-            touchingFakecast = true;
-        }
-    }
-
-    void OnTriggerExit(Collider other)
-    {
-        // Check for absence of fakecast contact
-        if (other.CompareTag("Fakecast"))
-        {
-            touchingFakecast = false;
         }
     }
 }

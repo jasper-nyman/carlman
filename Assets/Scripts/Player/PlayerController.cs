@@ -107,10 +107,8 @@ public class PlayerController : MonoBehaviour
                     grabComp.objectCollider.enabled = true;
                     grabComp.rb.useGravity = true;
 
-                    var.heldObject.GetComponent<Rigidbody>().AddForce((gameObject.transform.up * 5f) + (var.cam.transform.forward * var.objectThrowForce), ForceMode.Impulse);
+                    var.heldObject.GetComponent<Rigidbody>().AddForce((gameObject.transform.up * 7f) + (var.cam.transform.forward * var.objectThrowForce), ForceMode.Impulse);
                     var.heldObject = null;
-
-
                 }
             }
         }
@@ -151,8 +149,8 @@ public class PlayerController : MonoBehaviour
                 Rigidbody rb = var.heldObject.GetComponent<Rigidbody>();
 
                 // Lerp held object to fakecast position
-                var.heldObject.transform.position = Vector3.Lerp(var.heldObject.transform.position, var.fakecast.transform.position - (var.fakecast.transform.up / 2f), Time.deltaTime * 10f);
-                var.heldObject.transform.rotation = Quaternion.Lerp(var.heldObject.transform.rotation, var.fakecast.transform.rotation, Time.deltaTime * 10f);
+                var.heldObject.transform.position = Vector3.Lerp(var.heldObject.transform.position, var.cam.transform.position + (var.cam.transform.forward) - (var.cam.transform.up), Time.deltaTime * 10f);
+                var.heldObject.transform.rotation = Quaternion.Lerp(var.heldObject.transform.rotation, var.cam.transform.rotation, Time.deltaTime * 10f);
             }
         }
     }

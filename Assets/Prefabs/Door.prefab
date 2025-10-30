@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 1456418917626457041}
   - component: {fileID: 5351264867324379819}
   - component: {fileID: 6361268331666907873}
+  - component: {fileID: 3426829825202240297}
   - component: {fileID: 3509628273585075404}
   - component: {fileID: 759968697567063451}
   - component: {fileID: 1721931598342800206}
@@ -251,7 +252,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 0}
-  m_VersionIndex: 312
+  m_VersionIndex: 315
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
@@ -354,6 +355,27 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 2, y: 4, z: 0.25}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!65 &3426829825202240297
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4657147987590707397}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 2, y: 4, z: 0.25}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!111 &3509628273585075404
 Animation:
   m_ObjectHideFlags: 0
@@ -384,11 +406,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8b1cf73c98cd85f4887c62cb8e8dc634, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  anim: {fileID: 3509628273585075404}
-  hinge: {fileID: 8756550850367515750}
   key: {fileID: 0}
   locked: 0
   open: 0
+  anim: {fileID: 3509628273585075404}
+  hinge: {fileID: 8756550850367515750}
   rotationY: 0
 --- !u!114 &1721931598342800206
 MonoBehaviour:
@@ -403,7 +425,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   interactable: 1
-  touchingFakecast: 0
+  grabable: 0
+  touchingRaycast: 0
+  grabComp: {fileID: 0}
 --- !u!1 &5758630765576079926
 GameObject:
   m_ObjectHideFlags: 0
@@ -445,7 +469,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5414774444198818831}
-  - component: {fileID: 7595485211187346885}
   m_Layer: 0
   m_Name: Hinge
   m_TagString: Wall
@@ -469,24 +492,3 @@ Transform:
   - {fileID: 7504849977717121357}
   m_Father: {fileID: 1557790438081421095}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!65 &7595485211187346885
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8756550850367515750}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 2, y: 4, z: 0.25}
-  m_Center: {x: 1, y: 2, z: -0.125}
