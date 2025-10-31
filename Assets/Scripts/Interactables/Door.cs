@@ -116,7 +116,7 @@ public class Door : MonoBehaviour
         hinge.transform.eulerAngles = new Vector3(hinge.transform.eulerAngles.x, rotationYStart + rotationY * parent.transform.lossyScale.x, hinge.transform.eulerAngles.z);
 
         // Check for interaction input
-        if (intComp.interactable && intComp.touchingRaycast)
+        if (intComp.isInteractable && intComp.touchingRaycast)
         {
             // Left mouse button for opening/closing
             if (Input.GetMouseButtonDown(0))
