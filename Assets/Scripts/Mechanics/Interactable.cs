@@ -4,7 +4,7 @@ public class Interactable : MonoBehaviour
 {
     // State variables
     [Header("States")]
-    public bool interactable;
+    public bool isInteractable;
     public bool grabable;
 
     // Do not modify these values directly
@@ -30,12 +30,12 @@ public class Interactable : MonoBehaviour
         if (grabable && grabComp.grabbed)
         {
             // Disable interaction while grabbed
-            interactable = false;
+            isInteractable = false;
         }
         else
         {
             // Enable interaction when not grabbed
-            interactable = true;
+            isInteractable = true;
         }
     }
 }

@@ -39,7 +39,9 @@ public class PlayerInteractor : MonoBehaviour
             handImage.enabled = false;
 
             if (!string.IsNullOrEmpty(reason))
+            {
                 Debug.Log($"Focus cleared: {reason}");
+            }
         }
     }
 
@@ -62,12 +64,14 @@ public class PlayerInteractor : MonoBehaviour
             // Try resolve Interactable directly, then via parent (covers child-collider setups)
             Interactable intComp = hit.collider.GetComponent<Interactable>();
             if (intComp == null)
+            {
                 intComp = hit.collider.GetComponentInParent<Interactable>();
+            }
 
             // Diagnostics
             Debug.Log($"Hit '{hit.collider.name}' (isTrigger={hit.collider.isTrigger}) | Interactable found: {(intComp != null ? intComp.name : "null")}");
 
-            if (intComp != null && intComp.interactable)
+            if (intComp != null && intComp.isInteractable)
             {
                 // If we switched target, clear previous
                 if (focusedObject != null && focusedObject != intComp.gameObject)
@@ -101,7 +105,7 @@ public class PlayerInteractor : MonoBehaviour
         if (focusedObject != null && Input.GetMouseButtonDown(0))
         {
             var intComp = focusedObject.GetComponent<Interactable>();
-            if (intComp != null && intComp.interactable && intComp.grabable && intComp.grabComp != null && intComp.grabComp.grabable)
+            if (intComp != null && intComp.isInteractable && intComp.grabable && intComp.grabComp != null && intComp.grabComp.grabable)
             {
                 var.heldObject = focusedObject;
                 Debug.Log($"Grabbed: {focusedObject.name}");
