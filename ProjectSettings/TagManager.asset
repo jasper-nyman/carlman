@@ -5,8 +5,8 @@ TagManager:
   serializedVersion: 3
   tags:
   - Interactable
-  - Fakecast
   - Wall
+  - Enemy
   layers:
   - Default
   - TransparentFX

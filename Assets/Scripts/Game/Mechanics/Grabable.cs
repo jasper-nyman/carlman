@@ -28,15 +28,13 @@ public class Grabable : MonoBehaviour
         if (grabbed)
         {
             rb.linearVelocity = Vector3.zero;
-            rb.constraints = RigidbodyConstraints.FreezeAll;
-            objectCollider.enabled = false;
+            rb.constraints = RigidbodyConstraints.FreezeRotation;
             objectTrigger.enabled = false;
             rb.useGravity = false;
         }
         else
         {
             rb.constraints = RigidbodyConstraints.None;
-            objectCollider.enabled = true;
             objectTrigger.enabled = false;
             rb.useGravity = true;
         }

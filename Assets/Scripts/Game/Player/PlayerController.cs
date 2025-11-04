@@ -1,4 +1,4 @@
-using Unity.VisualScripting;
+﻿using Unity.VisualScripting;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
@@ -140,6 +140,18 @@ public class PlayerController : MonoBehaviour
                     grabComp.objectCollider.enabled = true;
                     grabComp.rb.useGravity = true;
 
+                    Collider[] playerColliders = GetComponentsInChildren<Collider>();
+                    Collider[] objectColliders = var.heldObject.GetComponentsInChildren<Collider>();
+
+                    foreach (var pc in playerColliders)
+                    {
+                        foreach (var oc in objectColliders)
+                        {
+                            // Re‑enable collisions between the player and the object
+                            Physics.IgnoreCollision(pc, oc, false);
+                        }
+                    }
+
                     var.heldObject.GetComponent<Rigidbody>().AddForce((gameObject.transform.up * 7f) + (var.cam.transform.forward * var.objectThrowForce), ForceMode.Impulse);
                     var.heldObject = null;
                 }
@@ -180,10 +192,29 @@ public class PlayerController : MonoBehaviour
             if (var.heldObject != null)
             {
                 Rigidbody rb = var.heldObject.GetComponent<Rigidbody>();
+                Vector3 holdPoint = var.holdPointObject.transform.position;
 
-                // Lerp held object to fakecast position
-                var.heldObject.transform.position = Vector3.Lerp(var.heldObject.transform.position, var.cam.transform.position + (var.cam.transform.forward) - (var.cam.transform.up), Time.deltaTime * 10f);
-                var.heldObject.transform.rotation = Quaternion.Lerp(var.heldObject.transform.rotation, var.cam.transform.rotation, Time.deltaTime * 10f);
+                Vector3 direction = holdPoint - rb.position;
+                float moveSpeed = 10f;
+
+                rb.linearVelocity = direction * moveSpeed; // physics-driven movement
+                rb.MoveRotation(Quaternion.Lerp(rb.rotation, var.cam.transform.rotation, Time.fixedDeltaTime * 10f));
+
+                // Get all colliders on the player (could be capsule, feet, hands, etc.)
+                Collider[] playerColliders = GetComponentsInChildren<Collider>();
+
+                // Get all colliders on the object being held (in case it has multiple parts)
+                Collider[] objectColliders = var.heldObject.GetComponentsInChildren<Collider>();
+
+                // Loop through every combination of player collider and object collider
+                foreach (var pc in playerColliders)
+                {
+                    foreach (var oc in objectColliders)
+                    {
+                        // Tell Unity’s physics engine to ignore collisions between this pair
+                        Physics.IgnoreCollision(pc, oc, true);
+                    }
+                }
             }
         }
     }

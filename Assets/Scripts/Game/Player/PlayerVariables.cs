@@ -14,7 +14,6 @@ public class PlayerVariables : MonoBehaviour
     public bool canSprint;
     public bool canJump;
     public bool canCrouch;
-    
     public bool canLook;
     public bool canInteract;
     public bool canGrab;
@@ -41,6 +40,7 @@ public class PlayerVariables : MonoBehaviour
     [Header("Do Not Modify")]
     public Rigidbody rb;
     public Animation anim;
+    public GameObject holdPointObject;
     public float cameraPositionY;
     public float cameraOffsetY;
     public float cameraRotation;

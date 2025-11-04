@@ -6,7 +6,7 @@ public class PlayerGroundCheck : MonoBehaviour
 
     void OnCollisionStay(Collision other)
     {
-        if (other.gameObject.CompareTag("Wall") == false)
+        if (other.gameObject.tag != "Wall" && other.gameObject.transform.parent.tag != "Enemy")
         {
             var.grounded = true;
         }
@@ -14,7 +14,7 @@ public class PlayerGroundCheck : MonoBehaviour
 
     void OnCollisionExit(Collision other)
     {
-        if (other.gameObject.CompareTag("Wall") == false)
+        if (other.gameObject.tag != "Wall" && other.gameObject.transform.parent.tag != "Enemy")
         {
             var.grounded = false;
         }
