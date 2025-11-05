@@ -5,7 +5,6 @@ public class Grabable : MonoBehaviour
 {
     // References
     [Header("References")]
-    public Collider objectCollider;
     public Collider objectTrigger;
 
     // State variables

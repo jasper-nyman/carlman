@@ -16,8 +16,8 @@ GameObject:
   - component: {fileID: 6361268331666907873}
   - component: {fileID: 3426829825202240297}
   - component: {fileID: 3509628273585075404}
-  - component: {fileID: 759968697567063451}
   - component: {fileID: 1721931598342800206}
+  - component: {fileID: 759968697567063451}
   m_Layer: 0
   m_Name: Panel
   m_TagString: Interactable
@@ -252,7 +252,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 0}
-  m_VersionIndex: 377
+  m_VersionIndex: 380
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
@@ -272,7 +272,7 @@ MonoBehaviour:
   m_Shape:
     rid: 4917790511704834256
   m_ShapeRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_UnmodifiedMeshVersion: 350
+  m_UnmodifiedMeshVersion: 480
   m_Size: {x: 2, y: 4, z: 0.25}
   m_LocalCenter: {x: 0, y: 0, z: 0}
   references:
@@ -394,6 +394,22 @@ Animation:
   m_AnimatePhysics: 0
   m_UpdateMode: 0
   m_CullingType: 0
+--- !u!114 &1721931598342800206
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4657147987590707397}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ad9addcda1bc57c4594ec7c8ff7b5dad, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isInteractable: 1
+  grabable: 0
+  touchingRaycast: 0
+  grabComp: {fileID: 0}
 --- !u!114 &759968697567063451
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -412,22 +428,6 @@ MonoBehaviour:
   anim: {fileID: 3509628273585075404}
   hinge: {fileID: 8756550850367515750}
   rotationY: 0
---- !u!114 &1721931598342800206
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4657147987590707397}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ad9addcda1bc57c4594ec7c8ff7b5dad, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  isInteractable: 1
-  grabable: 0
-  touchingRaycast: 0
-  grabComp: {fileID: 0}
 --- !u!1 &5758630765576079926
 GameObject:
   m_ObjectHideFlags: 0

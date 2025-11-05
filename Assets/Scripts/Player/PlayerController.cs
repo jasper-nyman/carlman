@@ -137,7 +137,6 @@ public class PlayerController : MonoBehaviour
                 {
                     grabComp.grabbed = false;
                     grabComp.rb.constraints = RigidbodyConstraints.None;
-                    grabComp.objectCollider.enabled = true;
                     grabComp.rb.useGravity = true;
 
                     Collider[] playerColliders = GetComponentsInChildren<Collider>();
