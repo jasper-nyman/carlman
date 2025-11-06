@@ -126,6 +126,36 @@ public class PlayerController : MonoBehaviour
                 var.cam.transform.localEulerAngles = new Vector3(cameraRotation, 0f, 0f);
             }
 
+            // Flashlight
+            if (Input.GetKeyDown(KeyCode.F))
+            {
+                var.flashlightOn = !var.flashlightOn;
+            }
+
+            // Flashlight flicker effect
+            var.flashlightFlicker = Random.Range(0f, 10f);
+
+            // Update flashlight state based on flicker
+            if (var.flashlightOn)
+            {
+                if (var.flashlightFlicker < 9.9f)
+                {
+                    var.flashlight.SetActive(true);
+                }
+                else
+                {
+                    var.flashlight.SetActive(false);
+                }
+            }
+            else
+            {
+                var.flashlight.SetActive(false);
+            }
+
+            // Lerp flashlight rotation to match camera pitch
+            var.flashlight.transform.position = Vector3.Lerp(var.flashlight.transform.position, transform.position + new Vector3(0f, 2.5f, 0f), Time.deltaTime * 10f);
+            var.flashlight.transform.rotation = Quaternion.Lerp(var.flashlight.transform.rotation, Quaternion.Euler(cameraRotation, transform.eulerAngles.y, 0f), Time.deltaTime * 10f);
+
             // Holding objects
             if (var.heldObject != null)
             {

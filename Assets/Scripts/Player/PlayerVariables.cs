@@ -41,12 +41,15 @@ public class PlayerVariables : MonoBehaviour
     public Rigidbody rb;
     public Animation anim;
     public GameObject holdPointObject;
+    public GameObject flashlight;
     public float cameraPositionY;
     public float cameraOffsetY;
     public float cameraRotation;
     public CanvasVariables cvar;
     public bool crouching;
     public float moveSpeedDivider;
+    public bool flashlightOn;
+    public float flashlightFlicker;
 
     void Start()
     {
